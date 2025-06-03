@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "130002456581",
+    "project_id": "shadowfit-538aa",
+    "storage_bucket": "shadowfit-538aa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130002456581:android:cc6b3470c4ca3396a44c6c",
+        "android_client_info": {
+          "package_name": "com.example.shadowfitdemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATPZhrsNYQ7tW1WfQXTPTptsXN1_VU-ds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
