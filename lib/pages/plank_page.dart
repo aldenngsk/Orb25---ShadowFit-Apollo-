@@ -374,12 +374,7 @@ class _PlankPageState extends State<PlankPage> {
           ),
         ],
       ),
-      floatingActionButton: kDebugMode
-          ? FloatingActionButton(
-              onPressed: _completePlank,
-              child: const Icon(Icons.done),
-            )
-          : null,
+      floatingActionButton: null,
     );
   }
 } 
