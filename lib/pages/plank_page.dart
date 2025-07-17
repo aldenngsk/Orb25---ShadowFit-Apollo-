@@ -7,6 +7,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:shadowfitdemo/services/firebase_service.dart';
 import 'package:flutter/foundation.dart';
+import 'dart:math' as math;
 
 class PlankPage extends StatefulWidget {
   final Function onPlankSuccess;
@@ -78,6 +79,7 @@ class _PlankPageState extends State<PlankPage> {
       _isDetecting = true;
       final InputImage? inputImage = _inputImageFromCameraImage(cameraImage);
       if (inputImage == null) {
+        if (!mounted) return;
         setState(() {
           _currentPose = null;
           _isPlank = false;
@@ -89,11 +91,13 @@ class _PlankPageState extends State<PlankPage> {
       }
       _poseDetector.processImage(inputImage).then((poses) {
         if (poses.isNotEmpty) {
+          if (!mounted) return;
           setState(() {
             _currentPose = poses.first;
           });
           _checkPlankPose(_currentPose!);
         } else {
+          if (!mounted) return;
           setState(() {
             _currentPose = null;
             _isPlank = false;
@@ -103,6 +107,7 @@ class _PlankPageState extends State<PlankPage> {
         }
         _isDetecting = false;
       }).catchError((e) {
+        if (!mounted) return;
         setState(() {
           _formWarning = 'Pose detection error: $e';
         });
@@ -153,39 +158,73 @@ class _PlankPageState extends State<PlankPage> {
     }
   }
 
+  // Helper to calculate angle at joint B given points A, B, C
+  double _calculateAngle(Offset a, Offset b, Offset c) {
+    final ab = Offset(a.dx - b.dx, a.dy - b.dy);
+    final cb = Offset(c.dx - b.dx, c.dy - b.dy);
+    final dotProduct = ab.dx * cb.dx + ab.dy * cb.dy;
+    final abLength = ab.distance;
+    final cbLength = cb.distance;
+    if (abLength == 0 || cbLength == 0) return 0;
+    final angleRad = math.acos((dotProduct / (abLength * cbLength)).clamp(-1.0, 1.0));
+    return angleRad * 180 / math.pi;
+  }
+
   void _checkPlankPose(Pose pose) {
-    // Simple plank logic: body is straight and parallel to the ground
-    // We'll check if shoulders, hips, and ankles are roughly aligned horizontally (y values similar)
+    // Angle-based plank logic: check hip angle (shoulder-hip-ankle) for both sides
     final leftShoulder = pose.landmarks[PoseLandmarkType.leftShoulder];
-    final rightShoulder = pose.landmarks[PoseLandmarkType.rightShoulder];
     final leftHip = pose.landmarks[PoseLandmarkType.leftHip];
-    final rightHip = pose.landmarks[PoseLandmarkType.rightHip];
     final leftAnkle = pose.landmarks[PoseLandmarkType.leftAnkle];
+    final rightShoulder = pose.landmarks[PoseLandmarkType.rightShoulder];
+    final rightHip = pose.landmarks[PoseLandmarkType.rightHip];
     final rightAnkle = pose.landmarks[PoseLandmarkType.rightAnkle];
 
-    if (leftShoulder != null && rightShoulder != null && leftHip != null && rightHip != null && leftAnkle != null && rightAnkle != null) {
-      // Calculate average y for shoulders, hips, ankles
-      final avgShoulderY = (leftShoulder.y + rightShoulder.y) / 2;
-      final avgHipY = (leftHip.y + rightHip.y) / 2;
-      final avgAnkleY = (leftAnkle.y + rightAnkle.y) / 2;
-      // All y values should be within a threshold (body is straight)
-      final isStraight = (avgShoulderY - avgHipY).abs() < 0.08 && (avgHipY - avgAnkleY).abs() < 0.08;
-      // Shoulders should be above hips, hips above ankles (plank is horizontal)
-      final isHorizontal = avgShoulderY < avgHipY && avgHipY < avgAnkleY;
-      if (isStraight && isHorizontal) {
-        setState(() {
-          _isPlank = true;
-          _formWarning = null;
-        });
-        _startTimer();
-        return;
-      }
+    double? leftAngle, rightAngle;
+    if (leftShoulder != null && leftHip != null && leftAnkle != null) {
+      leftAngle = _calculateAngle(
+        Offset(leftShoulder.x, leftShoulder.y),
+        Offset(leftHip.x, leftHip.y),
+        Offset(leftAnkle.x, leftAnkle.y),
+      );
     }
+    if (rightShoulder != null && rightHip != null && rightAnkle != null) {
+      rightAngle = _calculateAngle(
+        Offset(rightShoulder.x, rightShoulder.y),
+        Offset(rightHip.x, rightHip.y),
+        Offset(rightAnkle.x, rightAnkle.y),
+      );
+    }
+
+    // Use the side with the more visible landmarks (prefer left, fallback to right)
+    double? angle = leftAngle ?? rightAngle;
+    if (leftAngle != null && rightAngle != null) {
+      angle = (leftAngle + rightAngle) / 2;
+    }
+
+    String? feedback;
+    bool isPlank = false;
+    if (angle != null) {
+      if (angle >= 160 && angle <= 200) {
+        isPlank = true;
+        feedback = null;
+      } else if (angle < 160) {
+        feedback = 'Raise your hips a bit.';
+      } else if (angle > 200) {
+        feedback = 'Lower your hips a bit.';
+      }
+    } else {
+      feedback = 'Could not detect your body position.';
+    }
+
     setState(() {
-      _isPlank = false;
-      _formWarning = 'Hold a straight plank position!';
+      _isPlank = isPlank;
+      _formWarning = feedback;
     });
-    _pauseTimer();
+    if (isPlank) {
+      _startTimer();
+    } else {
+      _pauseTimer();
+    }
   }
 
   void _startTimer() {
@@ -249,6 +288,19 @@ class _PlankPageState extends State<PlankPage> {
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.redAccent),
                 ),
                 SizedBox(height: 10),
+                // Add user instruction for side view
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    'Tip: Place your device so the camera sees you from the side. Use the front camera and turn your body sideways to the camera for best results.',
+                    style: TextStyle(fontSize: 14, color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
                 // No counter for plank
                 SizedBox(height: 10),
                 if (_formWarning != null)
@@ -272,7 +324,7 @@ class _PlankPageState extends State<PlankPage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      'Good Form!',
+                      'Good plank form!',
                       style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
