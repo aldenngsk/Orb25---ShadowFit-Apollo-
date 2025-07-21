@@ -9,12 +9,10 @@ class FirebaseService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  // Initialize Firebase
   static Future<void> initializeFirebase() async {
     await Firebase.initializeApp();
   }
 
-  // Authentication Methods
   static Future<UserCredential> signUpWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -43,14 +41,11 @@ class FirebaseService {
     await _auth.signOut();
   }
 
-  // Firestore Methods
   static Future<void> addUserData(String userId, Map<String, dynamic> userData) async {
     try {
-      // Use update with merge to prevent overwriting other fields
       await _firestore.collection('users').doc(userId).set(userData, SetOptions(merge: true));
     } catch (e) {
       print("Error saving user data: $e");
-      // Retry once after a short delay
       await Future.delayed(Duration(milliseconds: 500));
       try {
         await _firestore.collection('users').doc(userId).set(userData, SetOptions(merge: true));
@@ -66,7 +61,6 @@ class FirebaseService {
       await _firestore.collection('users').doc(userId).update(userData);
     } catch (e) {
       print("Error updating user data: $e");
-      // Retry once after a short delay
       await Future.delayed(Duration(milliseconds: 500));
       try {
         await _firestore.collection('users').doc(userId).update(userData);
@@ -82,7 +76,6 @@ class FirebaseService {
       return await _firestore.collection('users').doc(userId).get();
     } catch (e) {
       print("Error getting user data: $e");
-      // Retry once after a short delay
       await Future.delayed(Duration(milliseconds: 500));
       try {
         return await _firestore.collection('users').doc(userId).get();
@@ -93,12 +86,10 @@ class FirebaseService {
     }
   }
 
-  // Get a live stream of the user's document
   static Stream<DocumentSnapshot> userDocStream(String userId) {
     return _firestore.collection('users').doc(userId).snapshots();
   }
 
-  // Storage Methods
   static Future<String> uploadImage(String path, List<int> imageBytes) async {
     try {
       final ref = _storage.ref().child(path);
@@ -109,6 +100,5 @@ class FirebaseService {
     }
   }
 
-  // Get current user
   static User? get currentUser => _auth.currentUser;
 } 
