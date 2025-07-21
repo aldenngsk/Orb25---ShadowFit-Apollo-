@@ -118,8 +118,8 @@ class _ShadowSoldierDetailPageState extends State<ShadowSoldierDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      width: 300,
-                      height: 300,
+                      width: 500,
+                      height: 500,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                       ),
