@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
             break;
           case 'invalid-credential':
           case 'invalid-login-credentials':
-            errorMessage = 'Email or password is incorrect.';
+            errorMessage = 'Email or password is incorrect!';
             break;
           default:
             errorMessage = 'An error occurred: ${e.message}';
@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       } catch (e) {
         if (mounted) {
-          _showSnackBar('An unexpected error occurred. Please try again.');
+          _showSnackBar('An unexpected error has occurred. Please try again.');
         }
       } finally {
         if (mounted) {
