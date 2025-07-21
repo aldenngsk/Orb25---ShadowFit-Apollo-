@@ -88,7 +88,7 @@ class _ExercisePageState extends State<ExercisePage> {
         print('No cameras found');
       }
     } catch (e) {
-      print('Error initializing camera: $e');
+      print('Error initialising camera: $e');
     }
   }
 
@@ -220,8 +220,6 @@ class _ExercisePageState extends State<ExercisePage> {
     }
   }
 
-  // === BEGIN: Pose angle and body part helpers (from Sports_py-master) ===
-
   double calculateAngle(Offset a, Offset b, Offset c) {
     final radians = math.atan2(c.dy - b.dy, c.dx - b.dx) - math.atan2(a.dy - b.dy, a.dx - b.dx);
     double angle = (radians * 180.0 / math.pi).abs();
@@ -234,8 +232,6 @@ class _ExercisePageState extends State<ExercisePage> {
     if (l == null) return null;
     return Offset(l.x, l.y);
   }
-
-  // === END: Pose angle and body part helpers ===
 
   void _checkPushupProgress(Pose pose) {
     print('DEBUG: Entered _checkPushupProgress');
@@ -319,7 +315,7 @@ class _ExercisePageState extends State<ExercisePage> {
     final abdomenAngle = calculateAngle(shoulderAvg, hipAvg, kneeAvg);
     setState(() {
       _debugAngle = abdomenAngle;
-      _debugStatus = _isSitupUp ? 'Up' : 'Down';
+      _debugStatus = _isSitupUp ? 'Down' : 'Up';
     });
     // Sports_py-master logic
     if (_isSitupUp) {
@@ -409,28 +405,7 @@ class _ExercisePageState extends State<ExercisePage> {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 SizedBox(height: 10),
-                // Debug info overlay (like score_table)
-                // Container(
-                //   padding: EdgeInsets.all(12),
-                //   margin: EdgeInsets.symmetric(vertical: 8),
-                //   decoration: BoxDecoration(
-                //     color: Colors.black.withOpacity(0.7),
-                //     borderRadius: BorderRadius.circular(8),
-                //   ),
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       Text('Activity:  {widget.exerciseType}', style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 16)),
-                //       Text('Counter: $count', style: TextStyle(color: Colors.white, fontSize: 16)),
-                //       Text('Status: ${_debugStatus}', style: TextStyle(color: Colors.greenAccent, fontSize: 16)),
-                //       Text('Angle: ${_debugAngle != null ? _debugAngle!.toStringAsFixed(1) : '--'}', style: TextStyle(color: Colors.cyanAccent, fontSize: 16)),
-                //       if (_poseError != null)
-                //         Text(_poseError!, style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold)),
-                //       if (widget.exerciseType == 'Push-ups')
-                //         Text(_debugLandmarkInfo, style: TextStyle(color: Colors.orange, fontSize: 12)),
-                //     ],
-                //   ),
-                // ),
+            
                 if (_isPushupDown || _isPushupUp)
                   Text(
                     _isPushupDown ? 'Push-up Down Position' : 'Push-up Up Position',
