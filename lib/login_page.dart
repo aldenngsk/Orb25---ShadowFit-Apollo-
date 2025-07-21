@@ -43,20 +43,20 @@ class _LoginPageState extends State<LoginPage> {
         String errorMessage;
         switch (e.code) {
           case 'user-not-found':
-            errorMessage = 'No account found with this email!';
+            errorMessage = 'No  valid account found with this email!';
             break;
           case 'wrong-password':
             errorMessage = 'Incorrect password!';
             break;
           case 'invalid-email':
-            errorMessage = 'Invalid email format!';
+            errorMessage = 'Invalid email or email not found!!';
             break;
           case 'user-disabled':
-            errorMessage = 'This account has been disabled!';
+            errorMessage = 'Account has been disabled!';
             break;
           case 'invalid-credential':
           case 'invalid-login-credentials':
-            errorMessage = 'Email or password is invalid or expired.';
+            errorMessage = 'Email or password is incorrect.';
             break;
           default:
             errorMessage = 'An error occurred: ${e.message}';
