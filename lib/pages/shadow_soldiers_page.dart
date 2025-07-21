@@ -65,7 +65,7 @@ class _ShadowSoldiersPageState extends State<ShadowSoldiersPage> {
         }
       }
     } catch (e) {
-      print("Error loading shadow soldiers: $e");
+      print("Error loading shadow: $e");
       setState(() {
         isLoading = false;
       });
