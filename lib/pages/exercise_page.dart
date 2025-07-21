@@ -489,7 +489,7 @@ class _ExercisePageState extends State<ExercisePage> {
                         ],
                       ),
                 SizedBox(height: 20),
-                SizedBox(height: 100), // Add bottom padding
+                SizedBox(height: 100),
               ],
             ),
           ),
