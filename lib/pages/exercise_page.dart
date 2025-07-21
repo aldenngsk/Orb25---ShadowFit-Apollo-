@@ -402,9 +402,9 @@ class _ExercisePageState extends State<ExercisePage> {
                 SizedBox(height: 10),
                 Text(
                   'Count: $count/60',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 30),
                 // Debug info overlay (like score_table)
                 // Container(
                 //   padding: EdgeInsets.all(12),
