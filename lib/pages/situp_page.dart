@@ -9,7 +9,7 @@ class SitupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExercisePage(
-      exerciseType: 'Sit-up',
+      exerciseType: 'Sit up',
       onComplete: onComplete,
     );
   }
