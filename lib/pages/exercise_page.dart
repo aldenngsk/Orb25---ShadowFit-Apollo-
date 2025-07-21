@@ -88,7 +88,7 @@ class _ExercisePageState extends State<ExercisePage> {
         print('No cameras found');
       }
     } catch (e) {
-      print('Error initializing camera: $e');
+      print('Error initialising camera: $e');
     }
   }
 
@@ -220,8 +220,6 @@ class _ExercisePageState extends State<ExercisePage> {
     }
   }
 
-  // === BEGIN: Pose angle and body part helpers (from Sports_py-master) ===
-
   double calculateAngle(Offset a, Offset b, Offset c) {
     final radians = math.atan2(c.dy - b.dy, c.dx - b.dx) - math.atan2(a.dy - b.dy, a.dx - b.dx);
     double angle = (radians * 180.0 / math.pi).abs();
@@ -234,8 +232,6 @@ class _ExercisePageState extends State<ExercisePage> {
     if (l == null) return null;
     return Offset(l.x, l.y);
   }
-
-  // === END: Pose angle and body part helpers ===
 
   void _checkPushupProgress(Pose pose) {
     print('DEBUG: Entered _checkPushupProgress');
@@ -319,7 +315,7 @@ class _ExercisePageState extends State<ExercisePage> {
     final abdomenAngle = calculateAngle(shoulderAvg, hipAvg, kneeAvg);
     setState(() {
       _debugAngle = abdomenAngle;
-      _debugStatus = _isSitupUp ? 'Up' : 'Down';
+      _debugStatus = _isSitupUp ? 'Down' : 'Up';
     });
     // Sports_py-master logic
     if (_isSitupUp) {
