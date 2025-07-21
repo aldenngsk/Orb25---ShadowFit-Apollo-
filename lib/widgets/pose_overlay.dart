@@ -59,14 +59,13 @@ class PosePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (pose == null) return;
 
-    // Sports_py-master style: white skeleton, gold highlights, red landmarks
     final skeletonPaint = Paint()
       ..color = Colors.white
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
 
     final highlightPaint = Paint()
-      ..color = Color(0xFFAE8B2D) // gold
+      ..color = Color(0xFFAE8B2D) // gold colour
       ..strokeWidth = 4.0
       ..style = PaintingStyle.stroke;
 
@@ -75,10 +74,10 @@ class PosePainter extends CustomPainter {
       ..strokeWidth = 4.0
       ..style = PaintingStyle.fill;
 
-    // Draw skeleton connections
+    // Skeleton connections
     _drawSkeleton(canvas, skeletonPaint, highlightPaint);
 
-    // Draw landmarks
+    // Body landmarks
     for (final entry in pose!.landmarks.entries) {
       final landmark = entry.value;
       final point = _transformPoint(landmark.x, landmark.y);
@@ -87,7 +86,7 @@ class PosePainter extends CustomPainter {
   }
 
   void _drawSkeleton(Canvas canvas, Paint skeletonPaint, Paint highlightPaint) {
-    // Use the same connections as before
+    
     final connections = [
       // Face
       [PoseLandmarkType.nose, PoseLandmarkType.leftEyeInner],
@@ -117,7 +116,7 @@ class PosePainter extends CustomPainter {
       [PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee],
       [PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle],
       [PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle],
-      // Hand connections
+      // Hands
       [PoseLandmarkType.leftWrist, PoseLandmarkType.leftPinky],
       [PoseLandmarkType.leftWrist, PoseLandmarkType.leftIndex],
       [PoseLandmarkType.leftWrist, PoseLandmarkType.leftThumb],
@@ -131,7 +130,7 @@ class PosePainter extends CustomPainter {
       if (startLandmark != null && endLandmark != null) {
         final startPoint = _transformPoint(startLandmark.x, startLandmark.y);
         final endPoint = _transformPoint(endLandmark.x, endLandmark.y);
-        // Highlight arms and legs with gold, rest with white
+        // Highlight arms and legs with gold and rest with white
         final isArmOrLeg = _isArmOrLegConnection(connection[0], connection[1]);
         final paint = isArmOrLeg ? highlightPaint : skeletonPaint;
         canvas.drawLine(startPoint, endPoint, paint);
