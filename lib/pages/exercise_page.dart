@@ -438,7 +438,7 @@ class _ExercisePageState extends State<ExercisePage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      'Good Form!',
+                      'Good Form',
                       style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
