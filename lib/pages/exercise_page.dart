@@ -438,7 +438,7 @@ class _ExercisePageState extends State<ExercisePage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      'Good Form!',
+                      'Good Form',
                       style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
@@ -489,7 +489,7 @@ class _ExercisePageState extends State<ExercisePage> {
                         ],
                       ),
                 SizedBox(height: 20),
-                SizedBox(height: 100), // Add bottom padding
+                SizedBox(height: 100),
               ],
             ),
           ),
