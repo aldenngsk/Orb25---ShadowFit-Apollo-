@@ -402,31 +402,10 @@ class _ExercisePageState extends State<ExercisePage> {
                 SizedBox(height: 10),
                 Text(
                   'Count: $count/60',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
-                SizedBox(height: 30),
-                // Debug info overlay (like score_table)
-                // Container(
-                //   padding: EdgeInsets.all(12),
-                //   margin: EdgeInsets.symmetric(vertical: 8),
-                //   decoration: BoxDecoration(
-                //     color: Colors.black.withOpacity(0.7),
-                //     borderRadius: BorderRadius.circular(8),
-                //   ),
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       Text('Activity:  {widget.exerciseType}', style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 16)),
-                //       Text('Counter: $count', style: TextStyle(color: Colors.white, fontSize: 16)),
-                //       Text('Status: ${_debugStatus}', style: TextStyle(color: Colors.greenAccent, fontSize: 16)),
-                //       Text('Angle: ${_debugAngle != null ? _debugAngle!.toStringAsFixed(1) : '--'}', style: TextStyle(color: Colors.cyanAccent, fontSize: 16)),
-                //       if (_poseError != null)
-                //         Text(_poseError!, style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold)),
-                //       if (widget.exerciseType == 'Push-ups')
-                //         Text(_debugLandmarkInfo, style: TextStyle(color: Colors.orange, fontSize: 12)),
-                //     ],
-                //   ),
-                // ),
+                SizedBox(height: 10),
+            
                 if (_isPushupDown || _isPushupUp)
                   Text(
                     _isPushupDown ? 'Push-up Down Position' : 'Push-up Up Position',
