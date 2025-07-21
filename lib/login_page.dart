@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 1, 71),
+      backgroundColor: const Color.fromARGB(255, 0, 2, 71),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -136,13 +136,13 @@ class _LoginPageState extends State<LoginPage> {
                         'ShadowFit',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 40,
+                          fontSize: 43,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: 43),
                   Card(
                     color: Colors.black,
                     shape: RoundedRectangleBorder(
