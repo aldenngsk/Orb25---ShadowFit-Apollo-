@@ -53,10 +53,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 content: Container(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Text(
-                    'Account created successfully!',
+                    'Account has been created successfully!',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,
@@ -107,7 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 borderRadius: BorderRadius.circular(30),
               ),
               margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              duration: Duration(seconds: 3),
+              duration: Duration(seconds: 4),
             ),
           );
         }
@@ -115,14 +115,14 @@ class _RegisterPageState extends State<RegisterPage> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('An unexpected error occurred. Please try again.', textAlign: TextAlign.center),
+              content: Text('An unexpected error hasoccurred. Please try again.', textAlign: TextAlign.center),
               backgroundColor: Colors.black,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              duration: Duration(seconds: 3),
+              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              duration: Duration(seconds: 5),
             ),
           );
         }
@@ -226,7 +226,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextButton(
                     onPressed: () => Navigator.pop(context),
                     child: Text(
-                      'Already have an account? Login',
+                      'Already have an account? Login Here',
                       style: TextStyle(color: Colors.white70, fontSize: 16),
                     ),
                   ),
