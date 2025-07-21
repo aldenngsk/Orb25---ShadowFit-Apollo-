@@ -51,7 +51,7 @@ class _ShadowSoldierDetailPageState extends State<ShadowSoldierDetailPage> {
         }
       }
     } catch (e) {
-      print("Error saving shadow soldier: $e");
+      print("Error saving shadow: $e");
     }
   }
 
