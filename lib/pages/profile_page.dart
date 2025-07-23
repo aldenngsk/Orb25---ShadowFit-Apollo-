@@ -20,6 +20,7 @@ class ProfilePage extends StatelessWidget {
                 backgroundImage: AssetImage('assets/icon/app_icon.png'), // Update path as needed
               ),
             ),
+            const SizedBox(height: 16)
           ],
         ),
       ),
