@@ -295,6 +295,19 @@ class _PlankPageState extends State<PlankPage> {
                   ),
                 ),
                 SizedBox(height: 10),
+                if (_formWarning != null)
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.red.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      _formWarning!,
+                      style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 if (_isPlank && _formWarning == null)
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
