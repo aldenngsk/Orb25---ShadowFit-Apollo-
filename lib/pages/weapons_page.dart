@@ -7,6 +7,7 @@ class WeaponsPage extends StatelessWidget {
     'Demon King’s Dagger',
     'Kamish’s Wrath',
     'Baruka’s Dagger',
+    'Knight Killer',
   ];
 
   @override
