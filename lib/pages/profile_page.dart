@@ -23,8 +23,13 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 16),
             const Text(
               'Alden Ng',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+            const SizedBox(height: 8),
+            const Text(
+              'aldenngsk@gmail.com',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            )
           ],
         ),
       ),
