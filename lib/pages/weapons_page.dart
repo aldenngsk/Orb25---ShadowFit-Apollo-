@@ -10,6 +10,11 @@ class WeaponsPage extends StatelessWidget {
     'Knight Killer',
     'Demon Monarch’s Longsword',
     'Demon Monarch’s Shortsword',
+    'Demon Monarch’s Daggers',
+    'Demon Monarch’s Armor',
+    'Demon Monarch’s Ring',
+    'Demon Monarch’s Necklace',
+    'Demon Monarch’s Earrings',
   ];
 
   @override
