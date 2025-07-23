@@ -29,6 +29,12 @@ class ProfilePage extends StatelessWidget {
             const Text(
               'aldenngsk@gmail.com',
               style: TextStyle(fontSize: 16, color: Colors.grey),
+            ),
+            const SizedBox(height: 32),
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: const Text('Edit Profile'),
+              onTap: ()
             )
           ],
         ),
