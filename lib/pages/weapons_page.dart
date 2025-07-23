@@ -15,6 +15,10 @@ class WeaponsPage extends StatelessWidget {
     'Demon Monarch’s Ring',
     'Demon Monarch’s Necklace',
     'Demon Monarch’s Earrings',
+    'Demon Monarch’s Belt',
+    'Demon Monarch’s Boots',
+    'Demon Monarch’s Gloves',
+    'Demon Monarch’s Cloak',
   ];
 
   @override
