@@ -34,8 +34,21 @@ class ProfilePage extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.edit),
               title: const Text('Edit Profile'),
-              onTap: ()
-            )
+              onTap: () {
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () {
+              },
+            ),
           ],
         ),
       ),
