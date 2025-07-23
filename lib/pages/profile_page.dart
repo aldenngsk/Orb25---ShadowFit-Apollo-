@@ -10,7 +10,8 @@ class ProfilePage extends StatelessWidget {
         title: const Text('Profile'),
       ),
       body: SingleChildScrollView(
- 
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
       ),
     );
   }
