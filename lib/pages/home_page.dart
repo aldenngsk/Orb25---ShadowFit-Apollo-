@@ -134,12 +134,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         }
       }
     } catch (e) {
-      // print("Error loading user data: $e");
     }
   }
 
   Future<void> _triggerBossBattleIfNeeded() async {
-    if (pendingBossBattleFor != null) return; // Battle already pending
+    if (pendingBossBattleFor != null) return; 
 
     final user = FirebaseService.currentUser;
     if (user == null) return;
@@ -158,7 +157,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         });
         await FirebaseService.addUserData(user.uid, {'pendingBossBattleFor': soldier.name});
         _startPlankButtonAnimation();
-        break; // Trigger for one soldier at a time
+        break; 
       }
     }
   }
@@ -180,7 +179,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         });
       }
     } catch (e) {
-      // print("Error saving user data: $e");
     }
   }
 
@@ -217,13 +215,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       else if (setsCompleted >= 20) currentRank = 'D';
       else currentRank = 'E';
     });
-    _saveUserData(); // Save after updating rank
+    _saveUserData(); 
   }
 
   void incrementSet() {
     setState(() {
       setsCompleted++;
-      currentXP = (currentXP + 3).clamp(0, 1000000); // Prevent negative XP
+      currentXP = (currentXP + 3).clamp(0, 1000000); 
       updateRank();
     });
     _saveUserData().then((_) => _triggerBossBattleIfNeeded());
@@ -231,9 +229,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   void updateXP(int spentXP) {
     setState(() {
-      currentXP = (currentXP - spentXP).clamp(0, 1000000); // Prevent negative XP
+      currentXP = (currentXP - spentXP).clamp(0, 1000000); 
     });
-    _saveUserData(); // Save after spending XP
+    _saveUserData(); 
   }
 
   int _getPlankDurationForCurrentChallenge() {
@@ -246,7 +244,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     if (sets >= 65) return 90;
     if (sets >= 40) return 60;
     if (sets >= 20) return 30;
-    return 30; // Fallback
+    return 30;
   }
 
   Future<void> _completeBossBattle() async {
@@ -544,7 +542,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           if (isBossBattleActive) {
                             return _isPlankButtonBlack ? Colors.black : Colors.grey[700]!;
                           }
-                          // Always disabled if no boss battle is active
                           return Colors.grey[700]!;
                         },
                       ),
@@ -582,7 +579,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       ],
                     ),
                   ),
-                  SizedBox(height: 100), // Add bottom padding for FAB
+                  SizedBox(height: 100), 
                 ],
               ),
             ),
@@ -648,10 +645,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       lastSetDate = null;
       pendingBossBattleFor = null;
     });
-    // Reset shadow soldiers in Firestore
     final user = FirebaseService.currentUser;
     if (user != null) {
-      // Initial shadow soldiers
       final List<Map<String, dynamic>> initialShadows = [
         {'name': 'Igris', 'requiredSets': 20, 'grade': 'Beast', 'xp': 0, 'isUnlocked': false},
         {'name': 'Tank', 'requiredSets': 40, 'grade': 'Beast', 'xp': 0, 'isUnlocked': false},
@@ -674,7 +669,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         'pendingBossBattleFor': null,
       });
     }
-    // Optionally show a snackbar
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
