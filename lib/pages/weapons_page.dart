@@ -6,6 +6,7 @@ class WeaponsPage extends StatelessWidget {
   final List<String> weapons = const [
     'Demon King’s Dagger',
     'Kamish’s Wrath',
+    'Baruka’s Dagger',
   ];
 
   @override
