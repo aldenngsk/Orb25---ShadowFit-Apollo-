@@ -20,7 +20,11 @@ class ProfilePage extends StatelessWidget {
                 backgroundImage: AssetImage('assets/icon/app_icon.png'), // Update path as needed
               ),
             ),
-            const SizedBox(height: 16)
+            const SizedBox(height: 16),
+            const Text(
+              'Alden Ng',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)
+            ),
           ],
         ),
       ),
