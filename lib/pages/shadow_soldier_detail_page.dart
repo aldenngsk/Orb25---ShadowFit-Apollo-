@@ -130,6 +130,16 @@ class _ShadowSoldierDetailPageState extends State<ShadowSoldierDetailPage> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20),
+                    Text(
+                      widget.shadowSoldier.name,
+                      style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Current Grade: ${widget.shadowSoldier.grade}',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
                     SizedBox(height: 8),
                     Text(
                       'Current XP: ${widget.shadowSoldier.xp}',
