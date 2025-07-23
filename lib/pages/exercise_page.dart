@@ -25,30 +25,25 @@ class _ExercisePageState extends State<ExercisePage> {
   late Future<void> _initializeControllerFuture;
   final PoseDetector _poseDetector = PoseDetector(options: PoseDetectorOptions());
   bool _isDetecting = false;
-  Pose? _currentPose; // Store current pose for visualization
+  Pose? _currentPose; 
 
-  // Push-up specific state variables
   bool _isPushupDown = false;
   bool _isPushupUp = false;
 
-  // Sit-up specific state variables
   bool _isSitupUp = false;
   bool _isSitupDown = false;
 
   int _noPoseFrames = 0;
   String? _poseError;
 
-  // Form validation state variables
   bool _isBodyStraight = false;
   String? _formWarning;
 
-  // Debug info
   double? _debugAngle;
   String _debugStatus = '';
   String _debugLandmarkInfo = '';
 
-  // Timer variables
-  static const int _totalSeconds = 300; // 5 minutes
+  static const int _totalSeconds = 300; 
   int _secondsLeft = _totalSeconds;
   Timer? _timer;
 
@@ -102,7 +97,7 @@ class _ExercisePageState extends State<ExercisePage> {
       if (inputImage == null) {
         print('InputImage is null (format or rotation not supported)');
         setState(() {
-          _poseError = 'Camera image format or rotation not supported on this device.';
+          _poseError = 'Camera image format or rotation not supported on this device';
         });
         _isDetecting = false;
         return;
@@ -160,7 +155,6 @@ class _ExercisePageState extends State<ExercisePage> {
       );
     }
 
-    // Default (YUV420)
     return InputImage.fromBytes(
       bytes: image.planes[0].bytes,
       metadata: InputImageMetadata(
@@ -242,7 +236,7 @@ class _ExercisePageState extends State<ExercisePage> {
     final rightShoulder = detectionBodyPart(landmarks, PoseLandmarkType.rightShoulder);
     final rightElbow = detectionBodyPart(landmarks, PoseLandmarkType.rightElbow);
     final rightWrist = detectionBodyPart(landmarks, PoseLandmarkType.rightWrist);
-    // Debug printout
+
     print('Push-up landmarks:');
     print('  leftShoulder: $leftShoulder');
     print('  leftElbow: $leftElbow');
@@ -275,7 +269,7 @@ class _ExercisePageState extends State<ExercisePage> {
       _debugAngle = avgArmAngle;
       _debugStatus = _isPushupUp ? 'Up' : 'Down';
     });
-    // Sports_py-master logic
+
     if (_isPushupUp) {
       if (avgArmAngle < 70) {
         setState(() {
@@ -295,7 +289,7 @@ class _ExercisePageState extends State<ExercisePage> {
 
   void _checkSitupProgress(Pose pose) {
     final landmarks = pose.landmarks;
-    // Shoulders, hips, knees for abdomen angle
+
     final leftShoulder = detectionBodyPart(landmarks, PoseLandmarkType.leftShoulder);
     final rightShoulder = detectionBodyPart(landmarks, PoseLandmarkType.rightShoulder);
     final leftHip = detectionBodyPart(landmarks, PoseLandmarkType.leftHip);
@@ -317,7 +311,7 @@ class _ExercisePageState extends State<ExercisePage> {
       _debugAngle = abdomenAngle;
       _debugStatus = _isSitupUp ? 'Down' : 'Up';
     });
-    // Sports_py-master logic
+
     if (_isSitupUp) {
       if (abdomenAngle < 55) {
         setState(() {
@@ -343,7 +337,7 @@ class _ExercisePageState extends State<ExercisePage> {
         });
       } else {
         _timer?.cancel();
-        // Return to homepage
+
         if (mounted) {
           Navigator.of(context).popUntil((route) => route.isFirst);
         }
