@@ -56,7 +56,6 @@ class _ShadowSoldiersPageState extends State<ShadowSoldiersPage> {
               isLoading = false;
             });
           } else {
-            // If no saved data exists, save the initial state
             await _saveShadowSoldiers();
             setState(() {
               isLoading = false;
