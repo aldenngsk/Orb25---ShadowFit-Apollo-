@@ -37,7 +37,6 @@ class _ShadowSoldierDetailPageState extends State<ShadowSoldierDetailPage> {
           final data = userData.data() as Map<String, dynamic>;
           List<dynamic> soldiersData = data['shadowSoldiers'] ?? [];
           
-          // Update the specific soldier in the list
           final index = soldiersData.indexWhere(
             (s) => s['name'] == widget.shadowSoldier.name
           );
@@ -65,7 +64,7 @@ class _ShadowSoldierDetailPageState extends State<ShadowSoldierDetailPage> {
         widget.shadowSoldier.updateGrade();
       });
       widget.onXPSpent(requiredXP);
-      _saveShadowSoldier(); // Save after upgrading
+      _saveShadowSoldier();
     }
   }
 
@@ -179,7 +178,7 @@ class _ShadowSoldierDetailPageState extends State<ShadowSoldierDetailPage> {
                           'Required XP: ${widget.shadowSoldier.getRequiredXPForNextGrade()}',
                         ),
                       ),
-                    SizedBox(height: 20), // Add bottom padding
+                    SizedBox(height: 20), 
                   ],
                 ),
               ),
