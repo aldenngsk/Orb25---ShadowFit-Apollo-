@@ -29,7 +29,6 @@ class _PlankPageState extends State<PlankPage> {
   bool _isPlank = false;
   String? _formWarning;
 
-  // Timer variables
   late int _secondsLeft;
   Timer? _timer;
   bool _timerRunning = false;
@@ -69,7 +68,7 @@ class _PlankPageState extends State<PlankPage> {
         print('No cameras found');
       }
     } catch (e) {
-      print('Error initializing camera: $e');
+      print('Error initialising camera: $e');
     }
   }
 
@@ -83,7 +82,7 @@ class _PlankPageState extends State<PlankPage> {
         setState(() {
           _currentPose = null;
           _isPlank = false;
-          _formWarning = 'Camera image format or rotation not supported.';
+          _formWarning = 'Camera image format or rotation not supported';
         });
         _isDetecting = false;
         _pauseTimer();
@@ -127,7 +126,6 @@ class _PlankPageState extends State<PlankPage> {
     );
     if (format == null) return null;
 
-    // Only use YUV420 (no WriteBuffer)
     return InputImage.fromBytes(
       bytes: image.planes[0].bytes,
       metadata: InputImageMetadata(
@@ -158,7 +156,6 @@ class _PlankPageState extends State<PlankPage> {
     }
   }
 
-  // Helper to calculate angle at joint B given points A, B, C
   double _calculateAngle(Offset a, Offset b, Offset c) {
     final ab = Offset(a.dx - b.dx, a.dy - b.dy);
     final cb = Offset(c.dx - b.dx, c.dy - b.dy);
@@ -171,7 +168,6 @@ class _PlankPageState extends State<PlankPage> {
   }
 
   void _checkPlankPose(Pose pose) {
-    // Angle-based plank logic: check hip angle (shoulder-hip-ankle) for both sides
     final leftShoulder = pose.landmarks[PoseLandmarkType.leftShoulder];
     final leftHip = pose.landmarks[PoseLandmarkType.leftHip];
     final leftAnkle = pose.landmarks[PoseLandmarkType.leftAnkle];
@@ -195,7 +191,6 @@ class _PlankPageState extends State<PlankPage> {
       );
     }
 
-    // Use the side with the more visible landmarks (prefer left, fallback to right)
     double? angle = leftAngle ?? rightAngle;
     if (leftAngle != null && rightAngle != null) {
       angle = (leftAngle + rightAngle) / 2;
@@ -282,13 +277,11 @@ class _PlankPageState extends State<PlankPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Timer at the top
                 Text(
                   'Time Left: ${(_secondsLeft ~/ 60).toString().padLeft(2, '0')}:${(_secondsLeft % 60).toString().padLeft(2, '0')}',
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.redAccent),
                 ),
                 SizedBox(height: 10),
-                // Add user instruction for side view
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
@@ -301,21 +294,7 @@ class _PlankPageState extends State<PlankPage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                // No counter for plank
                 SizedBox(height: 10),
-                if (_formWarning != null)
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.red.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      _formWarning!,
-                      style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
                 if (_isPlank && _formWarning == null)
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -330,7 +309,6 @@ class _PlankPageState extends State<PlankPage> {
                     ),
                   ),
                 SizedBox(height: 20),
-                // Centered camera preview with pose overlay
                 _controller != null && _controller!.value.isInitialized
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -368,7 +346,7 @@ class _PlankPageState extends State<PlankPage> {
                         ],
                       ),
                 SizedBox(height: 20),
-                SizedBox(height: 100), // Add bottom padding
+                SizedBox(height: 100), 
               ],
             ),
           ),
