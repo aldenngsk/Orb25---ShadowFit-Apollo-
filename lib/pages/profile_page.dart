@@ -12,6 +12,16 @@ class ProfilePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 32),
+            Center(
+              child: CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage('assets/icon/app_icon.png'), // Update path as needed
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
