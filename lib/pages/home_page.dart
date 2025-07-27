@@ -236,15 +236,23 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   int _getPlankDurationForCurrentChallenge() {
     final sets = setsCompleted;
-    if (sets >= 220) return 240;
-    if (sets >= 185) return 210;
-    if (sets >= 150) return 180;
-    if (sets >= 120) return 150;
-    if (sets >= 90) return 120;
-    if (sets >= 65) return 90;
-    if (sets >= 40) return 60;
-    if (sets >= 20) return 30;
-    return 30;
+    int base;
+    if (sets >= 220) base = 240;
+    else if (sets >= 185) base = 210;
+    else if (sets >= 150) base = 180;
+    else if (sets >= 120) base = 150;
+    else if (sets >= 90) base = 120;
+    else if (sets >= 65) base = 90;
+    else if (sets >= 40) base = 60;
+    else if (sets >= 20) base = 30;
+    else base = 30;
+
+    final user = FirebaseService.currentUser;
+    int totalReduction = 0;
+    if (user != null) {
+      final userDataFuture = FirebaseService.getUserData(user.uid);
+    }
+    return base;
   }
 
   Future<void> _completeBossBattle() async {
@@ -560,8 +568,25 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     ),
                     onPressed: !isBossBattleActive
                         ? null
-                        : () {
-                            final duration = _getPlankDurationForCurrentChallenge();
+                        : () async {
+                            final user = FirebaseService.currentUser;
+                            int duration = _getPlankDurationForCurrentChallenge();
+                            if (user != null) {
+                              final userData = await FirebaseService.getUserData(user.uid);
+                              if (userData.exists) {
+                                final data = userData.data() as Map<String, dynamic>;
+                                final soldiersData = List<Map<String, dynamic>>.from(data['shadowSoldiers'] ?? []);
+                                int totalReduction = 0;
+                                for (var s in soldiersData) {
+                                  if (s['isUnlocked'] == true) {
+                                    final grade = s['grade'] as String? ?? 'Beast';
+                                    totalReduction += ShadowSoldier.gradeReduction[grade] ?? 0;
+                                  }
+                                }
+                                duration = duration - totalReduction;
+                                if (duration < 10) duration = 10;
+                              }
+                            }
                             Navigator.push(
                               context,
                               MaterialPageRoute(

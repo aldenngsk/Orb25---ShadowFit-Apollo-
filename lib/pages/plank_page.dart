@@ -365,7 +365,14 @@ class _PlankPageState extends State<PlankPage> {
           ),
         ],
       ),
-      floatingActionButton: null,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          widget.onPlankSuccess();
+          Navigator.of(context).pop();
+        },
+        tooltip: 'Done',
+        child: Icon(Icons.check),
+      ),
     );
   }
 } 

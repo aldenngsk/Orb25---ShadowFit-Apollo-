@@ -64,4 +64,19 @@ class ShadowSoldier {
     else if (xp >= 100) grade = 'Infantry';
     else grade = 'Beast';
   }
+
+  static const Map<String, int> gradeReduction = {
+    'Beast': 0,
+    'Infantry': 2,
+    'Elite': 3,
+    'Knight': 4,
+    'Knight Elite': 5,
+    'Commander': 6,
+    'Marshall': 7,
+    'Grand-Marshall': 8,
+  };
+
+  int getPlankReduction() {
+    return gradeReduction[grade] ?? 0;
+  }
 } 
